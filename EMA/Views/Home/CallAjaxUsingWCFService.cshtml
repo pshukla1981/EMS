@@ -1,0 +1,142 @@
+﻿
+@{
+    ViewBag.Title = "AjaxUsingWebService";
+}
+
+<h2>CallAjaxUsingWCFService</h2>
+<div class="row">
+    <div class="col-md-1">
+        Enter  Id
+    </div>
+    <div class="col-md-2">
+        <input id="txtsearch" type="text" class="form-control" placeholder="Enter employee id" />
+    </div>
+    <div class="col-md-1">
+        <input id="btnsearch" type="button" value="Search" class="btn btn-primary" />
+    </div>
+</div>
+<div id="divajax" class="row">
+    <div class="col-lg-8">
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtcode">Code</label>
+                            <input id="txtcode" type="text" class="form-control" placeholder="Employee Code" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtname">Name</label>
+                            <input id="txtname" type="text" class="form-control" placeholder="Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtemail">Email</label>
+                            <input type="text" id="txtemail" class="form-control" placeholder="Email" />
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdepartment">Department</label>
+                            <input type="text" id="txtdepartment" class="form-control" placeholder="Your Department" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdepartment">Mobile</label>
+                            <input type="text" id="txtmobile" class="form-control" placeholder="Your Mobile" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtjoining">Joining Date</label>
+                            <input type="text" id="txtjoining" class="form-control" placeholder="Joining Date" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdesignation">Designation</label>
+                            <input type="text" id="txtdesignation" class="form-control" placeholder="Designation" />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divresult" class="alert alert-success">
+                </div>
+
+            </fieldset>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section scripts
+    {
+    <script type="text/javascript">
+        $(document).ready(function () {
+           
+
+
+            $("#btnsearch").click(function () {
+                if ($("#txtsearch").val() == "") {
+                    alert('Please enter employee id');
+                }
+                else {
+                    $.ajax({
+                        url: "/WCF/EmployeeService.svc/GetEmployee",
+                        data: JSON.stringify({ EmpId: $("#txtsearch").val() }),
+                        method: "POST",
+                        datatype: "json",
+                        contentType: "application/json;charset=utf-8;",
+                        success: function (response) {
+                           // var empdata = $(response);
+                            // alert(empdata);
+                            var _EmpCode = response.d.EmpCode;
+                            var _EmpEmail = response.d.EmpEmail;
+                            var _EmpName = response.d.EmpName;
+                            
+                            var _DepartmentName = response.d.DepartmentName;
+                            var _MobileNumber = response.d.MobileNumber;
+                            var _JoiningDate = response.d.JoiningDate;
+                            var _DesignationName = response.d.DesignationName;
+                            $("#txtcode").val(_EmpCode);
+                            $("#txtname").val(_EmpName);
+                            $("#txtemail").val(_EmpEmail);
+                            $("#txtdepartment").val(_DepartmentName);
+                            $("#txtmobile").val(_MobileNumber);
+                            $("#txtjoining").val(_JoiningDate);
+                            $("#txtdesignation").val(_DesignationName);
+                            if (_EmpCode == "") {
+                                alert('Requested details with Emp Id "' + $("#txtsearch").val() +'" not found');
+                            }
+                        },
+                        error: function (error) {
+                            alert(error);
+                        }
+                    });
+                }
+
+
+            });
+        });
+    </script>
+}

@@ -1,0 +1,97 @@
+﻿
+@{
+    ViewBag.Title = "ToolTip";
+}
+
+<h2>ToolTip</h2>
+
+<div id="divajax" class="row">
+    <div class="col-lg-8">
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtcode" title="Code">Code</label>
+                            <input id="txtcode" type="text" class="form-control" placeholder="Employee Code" title="Please enter Employee Code" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtname" title="Name">Name</label>
+                            <input id="txtname" type="text" class="form-control" placeholder="Name" title="Please enter Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtemail" title="Email">Email</label>
+                            <input type="text" id="txtemail" class="form-control" placeholder="Email" title="Please enter Email" />
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdepartment" title="Department">Department</label>
+                            <input type="text" id="txtdepartment" class="form-control" placeholder="Your Department" title="Please enter Your Department" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdepartment" title="Mobile">Mobile</label>
+                            <input type="text" id="txtmobile" class="form-control" placeholder="Your Mobile" title="Please enter Your Mobile" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtjoining" title="Joining Date">Joining Date</label>
+                            <input type="text" id="txtjoining" class="form-control" placeholder="Joining Date" title="Please enter Joining Date" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdesignation" title="Designation">Designation</label>
+                            <input type="text" id="txtdesignation" class="form-control" placeholder="Designation" title="Please enter Designation" />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divresult" class="alert alert-success">
+                </div>
+
+            </fieldset>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section scripts 
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txtcode").tooltip({
+                content: "<b>Title</b> This is new tooltip",
+                track: true,
+                show: { delay: 100, duration: 500, effect: "slidedown" },
+                hide: { delay: 100, duration: 500, effect: "explode"}
+            });
+
+        });
+    </script>
+
+    
+}

@@ -1,0 +1,61 @@
+﻿@model List<EMA.Business.Factory.ViewModels.CountryModel>
+
+@{
+    ViewBag.Title = "JqueryTabs";
+}
+
+<h2>JqueryTabs</h2>
+
+<div id="tabs" style="width:400px;">
+    <ul>
+        @foreach (var items in Model)
+        {
+
+            <li>
+                <a href="#c_@items.Id">@items.CountryName</a>
+            </li>
+
+        }
+    </ul>
+        @foreach (var items in Model)
+        {
+            <div id="c_@items.Id">
+                @items.CountryDescription
+            </div>
+        }
+        @*<ul>
+                <li>
+                    <a href="#tab1">Tab 1</a>
+                </li>
+                <li>
+                    <a href="#tab2">Tab 2</a>
+                </li>
+                <li>
+                    <a href="#tab3">Tab 3</a>
+                </li>
+            </ul>
+
+            <div id="tab1">
+                This is tab 1
+            </div>
+            <div id="tab2">
+                This is tab 2
+            </div>
+            <div id="tab3">
+                This is tab 3
+            </div>*@
+    </div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#tabs").tabs({
+                collapsible: true,
+                active: 1
+                
+            });
+        });
+    </script>
+
+}

@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "JqueryAccordion";
+}
+
+<h2>JqueryAccordion</h2>
+
+<div id="accordian" style="width:400px;">
+    @*<h3>Header 1</h3>
+    <div>
+        Content panel 1
+    </div>
+    <h3>Header 2</h3>
+    <div>
+        Content panel 2
+    </div>
+    <h3>Header 3</h3>
+    <div>
+        Content panel 3
+    </div>*@
+</div>
+
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <div class="nav-side-menu" style="padding-top:20px;">
+            <div class="brand">Admin</div>
+           
+          
+            
+            <div id="accordian" class="menu-list">
+                <li data-toggle="collapse" data-target="#menus" class="collapsed menu1 text-info active">
+                    <a href="javascript:void(0)"><i class="fa fa-globe fa-lg"></i> Menu Management <span class="arrow"></span></a>
+                </li>
+                <ul id="menus" class="itemul">
+                    <li id="MainMenu"><a href="@Url.Action("MainMenu", "Admin")"><span>Main Menu</span></a></li>
+                    <li id="SubMenu"><a href="@Url.Action("SubMenu", "Admin")"><span>Sub Menu</span></a></li>
+                    <li id="DefaultView"><a href="@Url.Action("DefaultView", "Admin")"><span>Admin Setting</span></a></li>
+                </ul>
+                <li data-toggle="collapse" data-target="#menus1" class="collapsed menu1 text-info">
+                    <a href="javascript:void(0)"><i class="fa fa-globe fa-lg"></i> Accounts <span class="arrow"></span></a>
+                </li>
+                <ul id="menus1" class="itemul">
+                    <li id="MainMenu"><a href="@Url.Action("MainMenu", "Admin")"><span>Internal Subcontractor</span></a></li>
+                    <li id="SubMenu"><a href="@Url.Action("SubMenu", "Admin")"><span>Sales Accoun</span></a></li>
+                    <li id="DefaultView"><a href="@Url.Action("DefaultView", "Admin")"><span>Purchase Account</span></a></li>
+                </ul>
+            </div>
+           
+        </div>
+    </section>
+</aside>
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#accordian").accordion();
+            //$.ajax({
+            //    url: "/EmpWebService.asmx/GetCountryList",
+            //    method: "POST",
+            //    type: "json",
+            //    contentType: "application/json;charset=utf-8;",
+            //    success: function (response) {
+            //        var htmlstring = "";
+            //        $(response.d).each(function (index, element) {
+            //            htmlstring += "<h3>" + element.CountryName + "</h3>";
+            //            htmlstring += "<div>" + element.CountryDescription + "</div>";
+            //        })
+            //        $("#accordian").html(htmlstring).accordion({
+            //            collapsible: true,
+            //            active: 2
+            //        });
+            //    },
+            //    error: function (err) {
+            //        alert(err);
+            //    }
+
+            //});
+
+        });
+    </script>
+}

@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "LoadDataOnPageScrollUsingJquery";
+}
+
+<h2>LoadDataOnPageScrollUsingJquery</h2>
+
+<h2>Basic Table</h2>
+<p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+<table id="tblcandidate" class="table">
+    <thead>
+        <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+</table>
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        var currentpage = 1;
+        $(document).ready(function () {
+            
+            $(window).scroll(function () {
+                if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+                    currentpage += 1;
+                    LoadData(currentpage);
+                }
+            });
+            LoadData(currentpage);
+
+        });
+
+       
+
+        function LoadData(pagenum) {
+           
+            $.ajax({
+                url: "/EmpWebService.asmx/GetCandidates",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify( { PageNumber: pagenum, PageSize: 20 }),
+                success: function (response) {
+                  //  debugger;
+                    var tbl = $("#tblcandidate tbody");
+                    $(response.d).each(function (index, element) {
+                        var $str = "<tr>";
+                        $str += "<td>" + element.FirstName + "</td>";
+                        $str += "<td>" + element.LastName + "</td>";
+                        $str += "<td>" + element.Email + "</td></tr>";
+                        tbl.append($str);
+                    })
+                    
+                   
+                },
+                error: function () {
+
+                }
+            })
+
+        }
+    </script>
+    
+}

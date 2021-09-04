@@ -1,0 +1,65 @@
+﻿
+@{
+    ViewBag.Title = "MultipleSliders";
+}
+
+<h2>MultipleSliders</h2>
+
+<div class="row">
+    <div class="col-md-12" id="divheight">
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12" id="divwidth">
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-12" id="divopacity">
+    </div>
+</div>
+
+<div id="divdimesnion"></div>
+<br /><br />
+<div class="row">
+    <img id="imgpic" src="~/Content/Images/GBA.jpg" style="width:100px; height:100px;" />
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#divheight, #divwidth").slider({
+                min: 100,
+                max: 500,
+                slide : RefreshImage
+                
+            });
+
+            $("#divopacity").slider({
+                min: 0,
+                max: 100,
+                value:100,
+                slide: RefreshImage
+            });
+
+        });
+
+        function RefreshImage() {
+            var height = $("#divheight").slider("value");
+            var width = $("#divwidth").slider("value");
+            var opacity = $("#divopacity").slider("value");
+            $("#divdimesnion").html("Height: " + height + " <br/>Width: " + width    + "<br/> Opacity: " + opacity/100);
+
+            $("#imgpic").css({
+                "height": height,
+                "width": width,
+                "opacity":opacity/100
+
+            });
+
+        }
+    </script>
+   
+}

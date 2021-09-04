@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "RangeSlider";
+}
+
+<h2>RangeSlider</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        Age : <span id="spnage">18-45 Years</span>
+    </div>
+
+    <br />
+    <br />
+    <div id="divrangeslider"></div>
+    <div class="col-md-12">
+        Minimum Age : <input id="txtminage" type="text" class="form-control" />
+    </div>
+    <div class="col-md-12">
+        Maximum Age : <input id="txtmaxage" type="text" class="form-control" />
+    </div>
+</div>
+
+@section scripts{
+    
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#divrangeslider").slider({
+            min: 18,
+            max: 100,
+            range: true,
+            values: [18,45],
+            slide: function (event, ui) {
+                var minvalue = ui.values[0];
+                var maxvalue = ui.values[1];
+                $("#spnage").text(minvalue + " - " + maxvalue + " Years");
+            },
+            stop: function (event, ui) {
+                var minvalue = ui.values[0];
+                var maxvalue = ui.values[1];
+                $("#txtminage").val(minvalue);
+                $("#txtmaxage").val(maxvalue);
+
+            }
+        });
+
+        $("#txtminage").val($("#divrangeslider").slider("values", 0));
+        $("#txtmaxage").val($("#divrangeslider").slider("values", 1));
+        $("#spnage").text($("#divrangeslider").slider("values", 0) + " - " + $("#divrangeslider").slider("values", 1) + " Years");
+       
+
+    });
+</script>    
+    
+}

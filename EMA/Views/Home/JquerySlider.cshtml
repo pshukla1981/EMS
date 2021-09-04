@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "JquerySlider";
+}
+
+<h2>JquerySlider</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+
+            <div id="divslider" class="col-md-4">
+            </div>
+        </div>
+        <div class="clearfix">
+
+        </div>
+        <br />
+        <div class="row" style="">
+            <div class="col-md-2">
+                Amount
+            </div>
+            <div class="col-md-4">
+                <input id="txtAmount" type="text" class="form-control" placeholder="Enter Amount" />
+            </div>
+        </div>
+        <div class="row" style="">
+            <div class="col-md-2">
+                Start
+            </div>
+            <div class="col-md-4">
+                <input id="txtStart" type="text" class="form-control" />
+            </div>
+        </div>
+        <div class="row" style="">
+            <div class="col-md-2">
+                End
+            </div>
+            <div class="col-md-4">
+                <input id="txtEnd" type="text" class="form-control" />
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+@section scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            $("#divslider").slider({
+                min: 10,
+                max: 200,
+                start: function (event, ui) {
+                    $("#txtStart").val(ui.value);
+                },
+                stop: function (event, ui) {
+                    $("#txtEnd").val(ui.value);
+                },
+                slide: function (event, ui) {
+                    $("#txtAmount").val(ui.value);
+                }
+
+            });
+
+        });
+    </script>
+    
+}

@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewBag.Title = "ToolTipUsingDatabase";
+}
+
+<h2>ToolTipUsingDatabase</h2>
+
+<div id="divajax" class="row">
+    <div class="col-lg-8">
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtcode" title="Code">Code</label>
+                            <input id="txtcode" type="text" class="form-control displaytooltip" placeholder="Employee Code" title="Please enter Employee Code" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtname" title="Name">Name</label>
+                            <input id="txtname" type="text" class="form-control displaytooltip" placeholder="Name" title="Please enter Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtemail" title="Email">Email</label>
+                            <input type="text" id="txtemail" class="form-control displaytooltip" placeholder="Email" title="Please enter Email" />
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdepartment" title="Department">Department</label>
+                            <input type="text" id="txtdepartment" class="form-control displaytooltip" placeholder="Your Department" title="Please enter Your Department" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtmobile" title="Mobile">Mobile</label>
+                            <input type="text" id="txtmobile" class="form-control displaytooltip" placeholder="Your Mobile" title="Please enter Your Mobile" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtjoining" title="Joining Date">Joining Date</label>
+                            <input type="text" id="txtjoining" class="form-control displaytooltip" placeholder="Joining Date" title="Please enter Joining Date" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdesignation" title="Designation">Designation</label>
+                            <input type="text" id="txtdesignation" class="form-control displaytooltip" placeholder="Designation" title="Please enter Designation" />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divresult" class="alert alert-success">
+                </div>
+
+            </fieldset>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".displaytooltip").tooltip({
+                content: GetToolTip
+            });
+
+            function GetToolTip() {
+                var tooltiptext = "";
+                $.ajax({
+                    url: "/EmpWebService.asmx/GetTooltip",
+                    method: "POST",
+                    contentType: "application/json; charset=utf-8;",
+                    dataType: "json",
+                    data: JSON.stringify({ helpkey: $(this).attr("id") }),
+                    async: false,
+                    success: function (response) {
+                        tooltiptext = response.d.HelpTextValue;
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+
+                });
+                return tooltiptext;
+            }
+        });
+    </script>
+    
+}

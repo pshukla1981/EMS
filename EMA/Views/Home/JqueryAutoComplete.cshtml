@@ -1,0 +1,149 @@
+﻿
+@{
+    ViewBag.Title = "JqueryAutoComplete";
+}
+
+<h2>JqueryAutoComplete</h2>
+
+<div class="row">
+    <div class="col-md-1">
+        Enter  Name
+    </div>
+    <div class="col-md-2">
+        <input id="txtsearch" type="text" class="form-control" placeholder="Enter employee name" />
+    </div>
+    <div class="col-md-1">
+        <input id="btnsearch" type="button" value="Search" class="btn btn-primary" />
+    </div>
+</div>
+<div id="divajax" class="row">
+    <div class="col-lg-8">
+        <form>
+            <fieldset>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtcode">Code</label>
+                            <input id="txtcode" type="text" class="form-control" placeholder="Employee Code" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtname">Name</label>
+                            <input id="txtname" type="text" class="form-control" placeholder="Name" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtemail">Email</label>
+                            <input type="text" id="txtemail" class="form-control" placeholder="Email" />
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdepartment">Department</label>
+                            <input type="text" id="txtdepartment" class="form-control" placeholder="Your Department" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdepartment">Mobile</label>
+                            <input type="text" id="txtmobile" class="form-control" placeholder="Your Mobile" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtjoining">Joining Date</label>
+                            <input type="text" id="txtjoining" class="form-control" placeholder="Joining Date" />
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="txtdesignation">Designation</label>
+                            <input type="text" id="txtdesignation" class="form-control" placeholder="Designation" />
+                        </div>
+                    </div>
+                </div>
+
+                <div id="divresult" class="alert alert-success">
+                </div>
+
+            </fieldset>
+
+        </form>
+
+    </div>
+
+</div>
+
+@section scripts
+{
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#txtsearch").autocomplete({
+                source: "/CandidateHandler.ashx" 
+            });
+
+            $("#txtname").autocomplete({
+                minLength: 2,
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/EmpWebService.asmx/CandidateAutoComplete",
+                        method: "POST",
+                        contentType: "application/json;charset=utf-8;",
+                        type: "json",
+                        data: JSON.stringify({ term: request.term }),
+                        success: function (data) {
+                            response(data.d);
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+
+                    });
+                }
+
+            })
+
+            $("#txtdepartment").autocomplete({
+
+                minLength: 2,
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Home/GetCandidates",
+                        method: "GET",
+                        type: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            response(data);
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+
+                    });
+                }
+            })
+
+        });
+
+
+    </script>
+
+}

@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "HandlingJsonArrayDataFromWebService";
+}
+
+<h2>HandlingJsonArrayDataFromWebService</h2>
+
+<div class="row">
+   
+    <div class="col-md-2">
+        <input id="btnsearch" type="button" value="Get all employees" class="btn btn-primary" />
+    </div>
+    
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table id="tblemployee" class="table">
+            <thead>
+                <tr>
+                    <th>EmpCode</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnsearch").click(function () {
+                $.ajax({
+                    url: "/EmpWebService.asmx/GetallEmployees",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: 'JSON',
+                    success: function (response) {
+                        var table = $("#tblemployee tbody");
+                        table.empty();
+                        var _list = response.d;
+                        $(_list).each(function (index, element) {
+                            //alert(element.EmployeeId);
+                            var _code = element.EmpCode;
+                            var _name = element.EmpName;
+                            var _designation = element.DesignationName;
+                            var $str = "<tr><td>"+ _code +"</td><td>"+ _name +"</td><td>"+ _designation +"</td></tr>";
+                            table.append($str);
+                        });
+                    },
+                    error: function () {
+
+                    }
+
+                });
+
+            });
+
+        });
+    </script>
+
+}

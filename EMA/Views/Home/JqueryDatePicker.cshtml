@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "JqueryDatePicker";
+}
+
+<h2>JqueryDatePicker</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-2">
+                DOB
+            </div>
+            <div class="col-md-4">
+                <input id="txtdob" type="text" class="form-control" placeholder="Enter DOB" />
+            </div>
+        </div>
+        <div class="clearfix">
+
+        </div>
+        <br />
+        <div class="row" style="">
+            <div class="col-md-2">
+                Date of joining
+            </div>
+            <div class="col-md-4">
+                <input id="txtdoj" type="text" class="form-control" placeholder="Enter Date of Joining" />
+            </div>
+        </div>
+
+
+    </div>
+
+    
+</div>
+
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+        var todaydate = new Date();
+        var minyear = todaydate.getFullYear() - 60;
+        var maxyear = todaydate.getFullYear() - 18;
+        $("#txtdob").datepicker({
+            dateFormat: "dd/mm/yy",
+            showOn: "both",
+            appendText: "dd/mm/yyyy",
+            buttonText: "Calendar",
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(minyear, 01, 01),
+            maxDate: new Date(maxyear, todaydate.getMonth(), todaydate.getDate()),
+            yearRange: "" + minyear + ":" + maxyear  +""
+            
+
+        });
+
+        $("#txtdoj").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+        });
+
+    });
+
+</script>    
+    
+}

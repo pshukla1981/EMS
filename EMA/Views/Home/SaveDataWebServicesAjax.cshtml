@@ -1,0 +1,182 @@
+﻿@model EMA.Business.Factory.ViewModels.EmployeeModel
+@{
+    ViewBag.Title = "SaveDataWebServicesAjax";
+}
+
+<h2>SaveDataWebServicesAjax</h2>
+
+<div class="row">
+    <form id="frmemployee">
+        <fieldset>
+            <div class="col-lg-4">
+
+                <div class="form-group">
+                    <label for="txtcode">Code</label>
+                    @Html.TextBoxFor(x=> x.EmpCode, new {@class= "form-control",@placeholder= "Employee Code" })
+                    <div id="divresult"></div>
+                </div>
+             
+                <div class="form-group">
+                    <label for="txtdepartment">Department</label>
+                    @Html.DropDownListFor(t => t.DepartmentId, new SelectList(Model.DepartmentList, "DepartmenId", "DepartmentName"), "--Select Department--", new { @class = "form-control ", @title = "Define the Department" })
+                    
+                </div>
+        
+                <div class="form-group">
+                    <label for="txtmanager">Reporting Manager</label>
+                  @Html.DropDownListFor(t => t.ReportingEmpId, new SelectList(Model.ManagerList, "Id", "Name"), "Select Manager", new {@class="form-control" })
+                </div>
+               
+                <div class="form-group">
+                    <label for="txtemail">Email</label>
+                    @Html.TextBoxFor(x => x.EmpEmail, new { @class = "form-control", @placeholder = "Employee Email" })
+                </div>
+           
+
+                <button type="button" class="btn btn-default" id="btnsave">Save</button>
+
+
+            </div>
+            <div class="col-lg-4">
+                <div class="form-group">
+                    <label for="txtname">Name</label>
+                    @Html.TextBoxFor(x => x.EmpName, new { @class = "form-control", @placeholder = "Full Name" })
+                </div>
+                <div class="form-group">
+                    <label for="txtdesignation">Designation</label>
+                    @Html.DropDownListFor(t=> t.DesignationId, new SelectList(Model.DesignationList, "DesignationId", "DesignationName"), new {@class="form-control" })
+                </div>
+                <div class="form-group">
+                    <label for="txtmobile">Mobile Number</label>
+                    @Html.TextBoxFor(x => x.MobileNumber, new { @class = "form-control", @placeholder = "Mobile Number", @type= "number" })
+                  
+                </div>
+                <div class="form-group">
+                    <label for="txtjoiningdate">Joining Date</label>
+                    @Html.TextBoxFor(x => x.JoiningDate, new { @class = "form-control", @placeholder = "Joining Date", @type = "date" })
+                </div>
+            </div>
+        </fieldset>
+
+    </form>
+</div>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <table id="tblemployee" class="table">
+            <thead>
+                <tr>
+                    <th>EmpCode</th>
+                    <th>Name</th>
+                    <th>Designation</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            LoadEmployees();
+
+            function LoadEmployees() {
+                $.ajax({
+                    url: "/EmpWebService.asmx/GetallEmployees",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: 'JSON',
+                    success: function (response) {
+                        var table = $("#tblemployee tbody");
+                        table.empty();
+                        var _list = response.d;
+                        $(_list).each(function (index, element) {
+                            //alert(element.EmployeeId);
+                            var _code = element.EmpCode;
+                            var _name = element.EmpName;
+                            var _designation = element.DesignationName;
+                            var $str = "<tr><td>" + _code + "</td><td>" + _name + "</td><td>" + _designation + "</td></tr>";
+                            table.append($str);
+                        });
+                    },
+                    error: function () {
+
+                    }
+
+                });
+            }
+
+            function SaveEmployee() {
+                var employee = {};
+                employee.EmpCode = $("#EmpCode").val();
+                employee.EmpName = $("#EmpName").val();
+                employee.DepartmentId = $("#DepartmentId").val();
+                employee.DesignationId = $("#DesignationId").val();
+                employee.ReportingEmpId = $("#ReportingEmpId").val();
+                employee.MobileNumber = $("#MobileNumber").val();
+                employee.EmpEmail = $("#EmpEmail").val();
+                employee.JoiningDate = $("#JoiningDate").val();
+
+                
+                $.ajax({
+                    url: "/EmpWebService.asmx/SaveEmployee",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    dataType: 'JSON',
+                    data: '{ model:' + JSON.stringify(employee) + '}',
+                    success: function (response) {
+                        alert(response.d);
+                        LoadEmployees();   
+                        $(".form-control").val("");
+                        $("#loading").hide();
+                    },
+                    error: function (ex) {
+                        alert(ex);
+                    }
+
+                });
+            }
+
+            $("#btnsave").click(function () {
+                $("#loading").show();
+                SaveEmployee();
+            });
+
+            $("#EmpCode").keyup(function () {
+                var empcode = $(this).val();
+                if (empcode.length > 3) {
+                    $.ajax({
+                        url: "/EmpWebService.asmx/CheckEmpCode",
+                        type: "POST",
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        data: JSON.stringify({ EmpCode: empcode }),
+                        success: function (response) {
+                            if (response.d == false) {
+                                $("#divresult").html("Employee Code " + empcode + ' is available');
+                                $("#divresult").css("color", "green");
+                            }
+                            else {
+                                $("#divresult").html("Employee Code " + empcode + ' already in use');
+                                $("#divresult").css("color", "red");
+                            }
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+
+                    })
+                }
+                
+            });
+
+        });
+    </script>
+
+}
