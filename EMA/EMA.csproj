@@ -276,6 +276,7 @@
     <Content Include="Views\Home\RangeSlider.cshtml" />
     <Content Include="Views\Home\ToolTip.cshtml" />
     <Content Include="Views\Home\ToolTipUsingDatabase.cshtml" />
+    <Content Include="Views\Home\JqueryProgressBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

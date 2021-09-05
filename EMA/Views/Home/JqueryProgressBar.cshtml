@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "JqueryProgressBar";
+}
+
+<h2>JqueryProgressBar</h2>
+
+<div class="row">
+    <div class="col-md-2">
+        Select Percentage
+    </div>
+    <div class="col-md-4">
+        <select id="ddlpercentage" class="form-control">
+            <option>10</option>
+            <option>20</option>
+            <option>30</option>
+            <option>40</option>
+            <option>50</option>
+            <option>60</option>
+            <option>70</option>
+            <option>80</option>
+            <option>90</option>
+            <option>100</option>
+        </select>
+    </div>
+    <div class="col-md-2">
+        <input id="btnset" type="button" class="btn btn-success" value="Set Value" />
+    </div>
+</div>
+<br />
+<div class="row">
+    <div id="divprogressbar" class="col-md-12">
+        <span id="progressbarlabel" style="position:absolute; left:50%; top:20%;">10%</span>
+    </div>
+</div>
+
+@section scripts{
+<script type="text/javascript">
+    $(document).ready(function () {
+       
+
+        var pb = $("#divprogressbar");
+        pb.progressbar();
+
+        $("#btnset").click(function () {
+            pb.progressbar({
+                value: parseInt($("#ddlpercentage").val()),
+                change: function () {
+                    $("#progressbarlabel").text($("#ddlpercentage").val() + "%");
+                }
+            });
+
+        });
+
+    });
+</script>    
+    
+}
