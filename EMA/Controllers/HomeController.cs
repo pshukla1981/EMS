@@ -132,5 +132,11 @@ namespace EMA.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult JqueryProgressBar()
+        {
+            return View();
+        }
+        
     }
 }
