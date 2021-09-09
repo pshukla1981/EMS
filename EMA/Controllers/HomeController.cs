@@ -137,6 +137,11 @@ namespace EMA.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult MultipleFileUploadUsingProgressBar()
+        {
+            return View();
+        }
         
     }
 }

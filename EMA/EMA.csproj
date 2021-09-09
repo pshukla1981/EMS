@@ -156,6 +156,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UploadHandler.ashx.cs">
+      <DependentUpon>UploadHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="WCF\EmployeeService.svc.cs">
       <DependentUpon>EmployeeService.svc</DependentUpon>
     </Compile>
@@ -277,9 +280,12 @@
     <Content Include="Views\Home\ToolTip.cshtml" />
     <Content Include="Views\Home\ToolTipUsingDatabase.cshtml" />
     <Content Include="Views\Home\JqueryProgressBar.cshtml" />
+    <Content Include="Views\Home\MultipleFileUploadUsingProgressBar.cshtml" />
+    <Content Include="UploadHandler.ashx" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Upload\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
