@@ -58,13 +58,16 @@
     <Compile Include="Factory\Repository\CountryRepository.cs" />
     <Compile Include="Factory\Repository\EmployeeRepository.cs" />
     <Compile Include="Factory\Repository\HelpRepository.cs" />
+    <Compile Include="Factory\Repository\MenuRepository.cs" />
     <Compile Include="Factory\ViewModels\CandidateModel.cs" />
+    <Compile Include="Factory\ViewModels\CityModel.cs" />
     <Compile Include="Factory\ViewModels\CountryModel.cs" />
     <Compile Include="Factory\ViewModels\DepartmentModel.cs" />
     <Compile Include="Factory\ViewModels\DesignationModel.cs" />
     <Compile Include="Factory\ViewModels\EmployeeModel.cs" />
     <Compile Include="Factory\ViewModels\EmployeeSuggestionModel.cs" />
     <Compile Include="Factory\ViewModels\HelpTextModel.cs" />
+    <Compile Include="Factory\ViewModels\MenuModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

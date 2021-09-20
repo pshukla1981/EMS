@@ -148,6 +148,7 @@
       <DependentUpon>CandidateHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JqueryController.cs" />
     <Compile Include="EmpWebService.asmx.cs">
       <DependentUpon>EmpWebService.asmx</DependentUpon>
       <SubType>Component</SubType>
@@ -282,6 +283,15 @@
     <Content Include="Views\Home\JqueryProgressBar.cshtml" />
     <Content Include="Views\Home\MultipleFileUploadUsingProgressBar.cshtml" />
     <Content Include="UploadHandler.ashx" />
+    <Content Include="Views\Jquery\Menu.cshtml" />
+    <Content Include="Views\Jquery\DynamicMenu.cshtml" />
+    <Content Include="Views\Jquery\SelectMenu.cshtml" />
+    <Content Include="Views\Jquery\DynamicSelectMenu.cshtml" />
+    <Content Include="Views\Jquery\Dialog.cshtml" />
+    <Content Include="Views\Jquery\SaveJqueryDialogTodatabase.cshtml" />
+    <Content Include="Views\Jquery\_country.cshtml" />
+    <Content Include="Views\Jquery\_Countries.cshtml" />
+    <Content Include="Views\Jquery\ButtonWidget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

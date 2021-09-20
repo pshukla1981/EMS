@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "SelectMenu";
+}
+
+<h2>SelectMenu</h2>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <select id="selectmenu" style="width:200px;" class="form-control">
+            <option value="1">USA</option>
+            <option value="2" selected="selected">India</option>
+            <option value="3">UK</option>
+            <option value="4">Australia</option>
+            <option value="5">Canada</option>
+        </select>
+        <br />
+        <br />
+        <select id="ddlcountry" style="width:200px;" class="form-control">
+            <optgroup label="USA">
+                <option value="1">NewYork</option>
+                <option value="2" selected="selected">California</option>
+            </optgroup>
+            <optgroup label="India">
+                <option value="3">Rajasthan</option>
+                <option value="4" selected="selected">Delhi</option>
+                <option value="5">Haryana</option>
+            </optgroup>
+
+        </select>
+
+    </div>
+</div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#selectmenu, #ddlcountry").selectmenu({
+                icons: { button: 'ui-icon-circle-arrow-s' },
+                width: 300,
+                select: function (event, ui) {
+                    alert('Label:' + ui.item.label + ' ' + 'Value:' + ui.item.value);
+                }
+            });
+
+        });
+    </script>
+    
+}

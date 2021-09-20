@@ -1,0 +1,46 @@
+﻿@model List<EMA.Business.Factory.ViewModels.CountryModel>
+@{
+    ViewBag.Title = "DynamicSelectMenu";
+}
+
+<h2>DynamicSelectMenu</h2>
+
+<div class="row">
+    <div class="col-md-4">
+
+
+        <br />
+        <br />
+        <select id="ddlcountry" style="width:200px;" class="form-control">
+            @foreach (var items in Model)
+            {
+            <optgroup label="@items.CountryName">
+                @foreach (var city in items.CityList)
+                {
+                    <option value="@city.CityId">@city.CityName</option>
+                }
+            </optgroup>
+            }
+
+
+        </select>
+
+    </div>
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#ddlcountry").selectmenu({
+                icons: { button: 'ui-icon-circle-arrow-s' },
+                width: 300,
+                select: function (event, ui) {
+                    alert('Label:' + ui.item.label + ' ' + 'Value:' + ui.item.value);
+                }
+            });
+
+        });
+    </script>
+
+}

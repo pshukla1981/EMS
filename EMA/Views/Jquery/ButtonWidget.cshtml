@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "ButtonWidget";
+}
+
+<h2>ButtonWidget</h2>
+
+<div class="row">
+    <input class="clsbtn" type="button" value="Button element" />
+    <input class="clsbtn" type="submit" value="Submit button" />
+    <a class="clsbtn" href="#">Anchor Element</a>
+</div>
+<br />
+<div class="row">
+    <div class="">
+        <label><input type="checkbox" id="Bold" />Bold</label>  
+    </div>
+    <div class="">
+        <label><input type="checkbox" id="Italic" />Italic</label> 
+    </div>
+    <div class="">
+        <label><input type="checkbox" id="Underline" />Underline</label> 
+    </div>
+</div>
+<br /><br />
+<div class="row">
+    <div class="">
+        <label><input type="radio" id="Male" name="Gender" />Male</label>
+    </div>
+    <div class="">
+        <label><input type="radio" id="Female"  name="Gender"/>Female</label>
+    </div>
+</div>
+
+<div class="divradio">
+  
+        <input type="radio" id="Male" name="G" /><label>Male</label>
+    
+   
+        <input type="radio" id="Female" name="G" /><label>Female</label>
+    
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".clsbtn").button({
+                icons: {
+                    primary: 'ui-icon-seek-first',
+                    secondary : 'ui-icon-power'
+
+                }
+            });
+
+            $("input[type='checkbox']").button().click(function () {
+                var id = $(this).attr("id");
+                var ischecked = $(this).is(":checked") ? 'Checked' : 'Unchecked';
+                alert(id + ' checkbox is ' + ischecked);
+            });
+            $("input[type='radio']").button();
+            $(".divradio").buttonset();
+        });
+    </script>
+    
+}

@@ -85,6 +85,7 @@
           </Key>
           <Property Name="CityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CityName" Type="varchar" MaxLength="50" />
+          <Property Name="CountryId" Type="int" />
         </EntityType>
         <EntityType Name="tblCity_copy">
           <Key>
@@ -141,6 +142,15 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <Property Name="ManaerId" Type="int" />
           <Property Name="DateOfjoining" Type="datetime" />
         </EntityType>
+        <EntityType Name="tblMenu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MenuText" Type="varchar" MaxLength="100" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
         <EntityType Name="tblStudent">
           <Key>
             <PropertyRef Name="StudentId" />
@@ -150,6 +160,18 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <Property Name="StudentAddress" Type="varchar" MaxLength="100" />
           <Property Name="CityId" Type="int" />
         </EntityType>
+        <Association Name="FK_tblCity_tblCountry">
+          <End Role="tblCountry" Type="Self.tblCountry" Multiplicity="0..1" />
+          <End Role="tblCity" Type="Self.tblCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCity">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblEmployee_tblDepartment">
           <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
           <End Role="tblEmployee" Type="Self.tblEmployee" Multiplicity="*" />
@@ -260,6 +282,7 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <EntitySet Name="tblDepartment" EntityType="Self.tblDepartment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDesignation" EntityType="Self.tblDesignation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblEmployee" EntityType="Self.tblEmployee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblMenu" EntityType="Self.tblMenu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStudent" EntityType="Self.tblStudent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblemployeedetails" EntityType="Self.tblemployeedetails" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -269,6 +292,10 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
     [tblemployeedetails].[DateOfjoining] AS [DateOfjoining]
     FROM [dbo].[tblemployeedetails] AS [tblemployeedetails]</DefiningQuery>
           </EntitySet>
+          <AssociationSet Name="FK_tblCity_tblCountry" Association="Self.FK_tblCity_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountry" />
+            <End Role="tblCity" EntitySet="tblCity" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblEmployee_tblDepartment" Association="Self.FK_tblEmployee_tblDepartment">
             <End Role="tblDepartment" EntitySet="tblDepartment" />
             <End Role="tblEmployee" EntitySet="tblEmployee" />
@@ -356,14 +383,6 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <EntityType Name="tblCity">
-          <Key>
-            <PropertyRef Name="CityId" />
-          </Key>
-          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblStudents" Relationship="Self.FK_tblStudent_tblCity" FromRole="tblCity" ToRole="tblStudent" />
-        </EntityType>
         <EntityType Name="tblCity_copy">
           <Key>
             <PropertyRef Name="CityId" />
@@ -414,7 +433,7 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <Property Name="StudentName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="StudentAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CityId" Type="Int32" />
-          <NavigationProperty Name="tblCity" Relationship="Self.FK_tblStudent_tblCity" FromRole="tblStudent" ToRole="tblCity" />
+          <NavigationProperty Name="tblCity" Relationship="EMSModel.FK_tblStudent_tblCity" FromRole="tblStudent" ToRole="tblCity" />
         </EntityType>
         <EntityType Name="tblemployeedetail">
           <Key>
@@ -425,18 +444,6 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <Property Name="ManaerId" Type="Int32" />
           <Property Name="DateOfjoining" Type="DateTime" Precision="3" />
         </EntityType>
-        <Association Name="FK_tblStudent_tblCity">
-          <End Role="tblCity" Type="Self.tblCity" Multiplicity="0..1" />
-          <End Role="tblStudent" Type="Self.tblStudent" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblCity">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="tblStudent">
-              <PropertyRef Name="CityId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblEmployee_tblDepartment">
           <End Role="tblDepartment" Type="Self.tblDepartment" Multiplicity="0..1" />
           <End Role="tblEmployee" Type="Self.tblEmployee" Multiplicity="*" />
@@ -481,17 +488,12 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <EntitySet Name="ErrorLogs" EntityType="Self.ErrorLog" />
           <EntitySet Name="ManagerSalaries" EntityType="Self.ManagerSalary" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="tblCities" EntityType="Self.tblCity" />
           <EntitySet Name="tblCity_copy" EntityType="Self.tblCity_copy" />
           <EntitySet Name="tblDepartments" EntityType="Self.tblDepartment" />
           <EntitySet Name="tblDesignations" EntityType="Self.tblDesignation" />
           <EntitySet Name="tblEmployees" EntityType="Self.tblEmployee" />
           <EntitySet Name="tblStudents" EntityType="Self.tblStudent" />
           <EntitySet Name="tblemployeedetails" EntityType="Self.tblemployeedetail" />
-          <AssociationSet Name="FK_tblStudent_tblCity" Association="Self.FK_tblStudent_tblCity">
-            <End Role="tblCity" EntitySet="tblCities" />
-            <End Role="tblStudent" EntitySet="tblStudents" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblEmployee_tblDepartment" Association="Self.FK_tblEmployee_tblDepartment">
             <End Role="tblDepartment" EntitySet="tblDepartments" />
             <End Role="tblEmployee" EntitySet="tblEmployees" />
@@ -552,6 +554,16 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           </FunctionImport>
           <EntitySet Name="tblCountries" EntityType="EMSModel.tblCountry" />
           <EntitySet Name="HelpTexts" EntityType="EMSModel.HelpText" />
+          <EntitySet Name="tblMenus" EntityType="EMSModel.tblMenu" />
+          <EntitySet Name="tblCities" EntityType="EMSModel.tblCity" />
+          <AssociationSet Name="FK_tblCity_tblCountry" Association="EMSModel.FK_tblCity_tblCountry">
+            <End Role="tblCountry" EntitySet="tblCountries" />
+            <End Role="tblCity" EntitySet="tblCities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblStudent_tblCity" Association="EMSModel.FK_tblStudent_tblCity">
+            <End Role="tblCity" EntitySet="tblCities" />
+            <End Role="tblStudent" EntitySet="tblStudents" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_deletedepartment_Result">
           <Property Type="Int32" Name="errnumber" Nullable="true" />
@@ -642,6 +654,7 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CountryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CountryDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCities" Relationship="EMSModel.FK_tblCity_tblCountry" FromRole="tblCountry" ToRole="tblCity" />
         </EntityType>
         <EntityType Name="HelpText">
           <Key>
@@ -651,6 +664,49 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
           <Property Name="HelpTextKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="HelpTextValue" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="tblMenu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MenuText" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="Active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="tblCity">
+          <Key>
+            <PropertyRef Name="CityId" />
+          </Key>
+          <Property Name="CityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CountryId" Type="Int32" />
+          <NavigationProperty Name="tblCountry" Relationship="EMSModel.FK_tblCity_tblCountry" FromRole="tblCity" ToRole="tblCountry" />
+          <NavigationProperty Name="tblStudents" Relationship="EMSModel.FK_tblStudent_tblCity" FromRole="tblCity" ToRole="tblStudent" />
+        </EntityType>
+        <Association Name="FK_tblCity_tblCountry">
+          <End Type="EMSModel.tblCountry" Role="tblCountry" Multiplicity="0..1" />
+          <End Type="EMSModel.tblCity" Role="tblCity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCountry">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCity">
+              <PropertyRef Name="CountryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblStudent_tblCity">
+          <End Type="EMSModel.tblCity" Role="tblCity" Multiplicity="0..1" />
+          <End Type="EMSModel.tblStudent" Role="tblStudent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCity">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="tblStudent">
+              <PropertyRef Name="CityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -727,14 +783,6 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblCities">
-            <EntityTypeMapping TypeName="EMSModel.tblCity">
-              <MappingFragment StoreEntitySet="tblCity">
-                <ScalarProperty Name="CityId" ColumnName="CityId" />
-                <ScalarProperty Name="CityName" ColumnName="CityName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -930,6 +978,25 @@ warning 6002: The table/view 'EMS.dbo.tblemployeedetails' does not have a primar
                 <ScalarProperty Name="HelpTextValue" ColumnName="HelpTextValue" />
                 <ScalarProperty Name="HelpTextKey" ColumnName="HelpTextKey" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblMenus">
+            <EntityTypeMapping TypeName="EMSModel.tblMenu">
+              <MappingFragment StoreEntitySet="tblMenu">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="MenuText" ColumnName="MenuText" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCities">
+            <EntityTypeMapping TypeName="EMSModel.tblCity">
+              <MappingFragment StoreEntitySet="tblCity">
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

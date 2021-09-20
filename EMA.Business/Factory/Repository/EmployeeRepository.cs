@@ -174,8 +174,8 @@ namespace EMA.Business.Factory.Repository
             {
                 using (var db = new EMSEntities())
                 {
-                    int i = 15;
-                    int j = i / 0;
+                    //int i = 15;
+                    //int j = i / 0;
                     tblEmployee obj = new tblEmployee();
                     if(model.EmployeeId == 0)
                     {

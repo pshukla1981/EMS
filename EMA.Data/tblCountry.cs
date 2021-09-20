@@ -14,8 +14,17 @@ namespace EMA.Data
     
     public partial class tblCountry
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblCountry()
+        {
+            this.tblCities = new HashSet<tblCity>();
+        }
+    
         public int Id { get; set; }
         public string CountryName { get; set; }
         public string CountryDescription { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblCity> tblCities { get; set; }
     }
 }

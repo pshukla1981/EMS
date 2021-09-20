@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Dialog";
+}
+
+<h2>Dialog</h2>
+<div class="row">
+    <div class="col-md-1">
+        Enter  Id
+    </div>
+    <div class="col-md-2">
+        <input id="txtsearch" type="text" class="form-control" placeholder="Enter employee id" />
+    </div>
+    <div class="col-md-1">
+        <input id="btnsearch" type="button" value="Search" class="btn btn-primary" />
+        
+    </div>
+</div>
+<div id="divdialog" title="title from div element">
+    This is jquery dialog
+    <br />
+    <input id="btnclose" type="button" value="Close" class="btn btn-danger" />
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#divdialog").dialog({
+                title: "title from jquery",
+                draggable: false,
+                resizable: false,
+                closeOnEscape: true,
+                modal: true,
+              //  autoOpen : false
+            });
+
+            $("#btnsearch").click(function () {
+                $("#divdialog").dialog("open");
+            });
+
+            $("#btnclose").click(function () {
+                $("#divdialog").dialog("close");
+
+            });
+
+        });
+    </script>
+
+}

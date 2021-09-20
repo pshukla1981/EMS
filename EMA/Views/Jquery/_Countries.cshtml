@@ -1,0 +1,26 @@
+﻿@model List<EMA.Business.Factory.ViewModels.CountryModel>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Description</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var items in Model)
+        {
+            <tr>
+                <td>@items.Id</td>
+                <td>@items.CountryName</td>
+                <td>@items.CountryDescription</td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>

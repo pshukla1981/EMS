@@ -1,0 +1,132 @@
+﻿
+@{
+    ViewBag.Title = "Menu";
+}
+<style>
+    .ui-menu {
+        width: 50% !important;
+    }
+</style>
+<h2>Menu</h2>
+<div class="row">
+    <div class="col-md-4">
+       
+        <ul id="menu">
+            <li>
+                <div>Accounts</div>
+                <ul>
+                    <li>
+                        <div>Internal Subcontractor</div>
+                    </li>
+                    <li>
+                        <div>Sales Accounts</div>
+
+                    </li>
+                    <li>
+                        <div>Purchase Accounts</div>
+                    </li>
+                    <li>
+                        <div>Drivers</div>
+                    </li>
+                    <li>
+                        <div>Vehicles</div>
+                    </li>
+                    <li>
+                        <div>
+                            Trailers
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            Shipping Terms
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            CPC Codes
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <div>Admin Config</div>
+                <ul>
+                    <li>
+                        <div>User Access</div>
+                    </li>
+                    <li>
+                        <div>Email Templates</div>
+                    </li>
+                    <li>
+                        <div>Error Logs</div>
+                    </li>
+                    <li>
+                        <div>Help</div>
+                    </li>
+                    <li class="ui-state-disabled">
+                        <div>Profit Center</div>
+                    </li>
+
+                </ul>
+            </li>
+            <li>
+                <div>India</div>
+                <ul>
+                    <li>
+                        <div>UP</div>
+                        <ul>
+                            <li>
+                                <div>Kanpur</div>
+                                <ul>
+                                    <li>
+                                        <div>
+                                            Itawa
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            Balia
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <div>Lukhnow</div>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <div>MP</div>
+                    </li>
+                    <li>
+                        <div>AP</div>
+                    </li>
+                    <li>
+                        <div>HP</div>
+                    </li>
+                    <li class="ui-state-disabled">
+                        <div>Dehli</div>
+                    </li>
+
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $("#menu").menu({
+            icons: { submenu: 'ui-icon-circle-arrow-e' },
+            disabled: false,
+            select: function (event, ui) {
+                //alert(ui.item.text());
+            }
+        });
+    </script>
+
+}

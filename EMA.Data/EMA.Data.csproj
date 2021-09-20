@@ -136,6 +136,9 @@
     <Compile Include="tblemployeedetail.cs">
       <DependentUpon>EMS.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblMenu.cs">
+      <DependentUpon>EMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblStudent.cs">
       <DependentUpon>EMS.tt</DependentUpon>
     </Compile>

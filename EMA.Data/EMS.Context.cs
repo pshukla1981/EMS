@@ -34,7 +34,6 @@ namespace EMA.Data
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
         public virtual DbSet<ManagerSalary> ManagerSalaries { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<tblCity> tblCities { get; set; }
         public virtual DbSet<tblCity_copy> tblCity_copy { get; set; }
         public virtual DbSet<tblDepartment> tblDepartments { get; set; }
         public virtual DbSet<tblDesignation> tblDesignations { get; set; }
@@ -43,6 +42,8 @@ namespace EMA.Data
         public virtual DbSet<tblemployeedetail> tblemployeedetails { get; set; }
         public virtual DbSet<tblCountry> tblCountries { get; set; }
         public virtual DbSet<HelpText> HelpTexts { get; set; }
+        public virtual DbSet<tblMenu> tblMenus { get; set; }
+        public virtual DbSet<tblCity> tblCities { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
         {

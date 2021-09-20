@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "SaveJqueryDialogTodatabase";
+}
+
+<h2>SaveJqueryDialogTodatabase</h2>
+
+<div class="row">
+    <div class="col-md-3 pull-right">
+        <input id="btnadd" type="button" class="btn btn-default" value="Add" />
+    </div>
+</div>
+<div id="tblcountry" class="row">
+ @Html.Action("_Countries")
+</div>
+
+<div id="divdialog">
+    <div id="divresult">
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#divdialog").dialog({
+                autoOpen: false,
+                title: "Add Country",
+                modal: true,
+                buttons: {
+                    'Save': saveCountry,
+                    'Cancel': function () {
+                        $("#divdialog").dialog("close");
+                    },
+
+                },
+
+            });
+
+            $("#btnadd").click(function () {
+                
+                $.ajax({
+                    url: "/Jquery/_country",
+                    method: "GET",
+                    data: null,
+                    success: function (data) {
+                        $("#divresult").html(data);
+                        $("#divdialog").dialog("open");
+
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+
+                });
+
+                
+
+            });
+
+        });
+
+        function saveCountry() {
+            var _country = {};
+           
+            var _name = $("#CountryName").val();
+            var _desc = $("#CountryDescription").val();
+            _country.CountryName = _name;
+            _country.CountryDescription = _desc;
+            if (_name == "" || _desc == "") {
+                alert("Name and description is mandatory");
+                return false;
+            }
+            else {
+                $.ajax({
+                    url: "/EmpWebService.asmx/SaveCountry",
+                    method: "POST",
+                    data: '{model:' + JSON.stringify(_country) + '}',
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8;",
+                    success: function (data) {
+                        alert(data.d);
+                        $("#divdialog").dialog("close");
+                        LoadCountries();
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                });
+            }
+
+
+        }
+
+        function LoadCountries() {
+            $.ajax({
+                url: "/Jquery/_Countries",
+                method: "GET",
+                data: null,
+                success: function (data) {
+                    $("#tblcountry").html(data);
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+
+            });
+
+        }
+
+
+    </script>
+    
+}

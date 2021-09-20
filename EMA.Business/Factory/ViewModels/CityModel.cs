@@ -7,11 +7,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EMA.Business.Factory.ViewModels
 {
-    public class CountryModel
+    public class CityModel
     {
-        public int Id { get; set; }
-        public string CountryName { get; set; }
-        public string CountryDescription { get; set; }
-        public List<CityModel> CityList { get; set; }
+        public int CityId { get; set; }
+        public string CityName { get; set; }
+        public Nullable<int> CountryId { get; set; }
     }
 }

@@ -97,5 +97,12 @@ namespace EMA
             model = new HelpRepository().GetHelp(helpkey);
             return model;
         }
+        [WebMethod]
+        public string SaveCountry(CountryModel model)
+        {
+            CountryRepository repository = new CountryRepository();
+            string Result = repository.InsertUpdateCountry(model);
+            return Result;
+        }
     }
 }

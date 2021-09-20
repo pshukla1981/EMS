@@ -1,0 +1,52 @@
+﻿@model List<EMA.Business.Factory.ViewModels.MainMenuModel>
+@{
+    ViewBag.Title = "DynamicMenu";
+}
+<style>
+    .ui-menu {
+        width: 100% !important;
+    }
+</style>
+<h2>DynamicMenu</h2>
+<div class="row">
+    <div class="col-md-4">
+
+        <ul id="menu">
+            @foreach (var items in Model)
+            {
+                <li>
+                    <div>@items.MainMenuText</div>
+                    <ul>
+                        @foreach (var submenu in items.SubMenuList)
+                        {
+                            <li>
+                                <div>@submenu.SubMenuText</div>
+                            </li>
+                        }
+                    </ul>
+                   
+                   
+                </li>
+            }
+
+          
+        </ul>
+    </div>
+</div>
+
+
+
+
+@section scripts
+{
+    <script type="text/javascript">
+        $("#menu").menu({
+            icons: { submenu: 'ui-icon-circle-arrow-e' },
+            disabled: false,
+            select: function (event, ui) {
+                //alert(ui.item.text());
+            }
+        });
+    </script>
+
+}
