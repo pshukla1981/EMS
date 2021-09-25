@@ -142,6 +142,18 @@ namespace EMA.Controllers
         {
             return View();
         }
-        
+
+        [HttpGet]
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(MainMenuModel model)
+        {
+            return View();
+        }
+
+
     }
 }

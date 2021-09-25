@@ -292,6 +292,7 @@
     <Content Include="Views\Jquery\_country.cshtml" />
     <Content Include="Views\Jquery\_Countries.cshtml" />
     <Content Include="Views\Jquery\ButtonWidget.cshtml" />
+    <Content Include="Views\Jquery\DraggableWidget.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

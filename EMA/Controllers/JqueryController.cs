@@ -69,6 +69,12 @@ namespace EMA.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public JsonResult SeVa()
+        {
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+        
 
 
 

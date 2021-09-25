@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "DraggableWidget";
+}
+
+<h2>DraggableWidget</h2>
+<style>
+    .divclass{
+        height:200px;
+        width: 200px;
+        background-color:red;
+        color:white;
+        display:table-cell;
+        vertical-align: middle;
+        text-align: center;
+
+    }
+</style>
+
+
+<div id="divGreen" class="divclass" style="background-color:green;">
+    Green div
+</div>
+<div id="divBlue" class="divclass" style="background-color:blue;">
+    Blue div
+</div>
+<div id="divBrown" class="divclass" style="background-color:brown;">
+    Brown div
+</div>
+<div id="divRed" class="divclass" style="background-color:red;">
+    Red div
+</div>
+<br />
+<div id="divsnap" style="height:500px; width:500px; border:5px solid black;">
+</div>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".divclass, #divsnap").draggable({
+                snap: "#divsnap",
+                snapToleranace: 50,
+                cancel: '#divsnap'
+               // //containment: '#containerdiv'
+               // cursor: 'move',
+               //// opacity: 0.3,
+               // revert: true,
+               // revertDuration : 8000
+            });
+
+        });
+    </script>
+
+}

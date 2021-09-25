@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using EMA.Business.Factory.Repository;
 using EMA;
 using EMA.Controllers;
 
@@ -42,13 +43,30 @@ namespace EMA.Tests.Controllers
         public void Contact()
         {
             // Arrange
-            HomeController controller = new HomeController();
+            //HomeController controller = new HomeController();
 
-            // Act
-            ViewResult result = controller.Contact() as ViewResult;
+            //// Act
+            //ViewResult result = controller.Contact() as ViewResult;
 
-            // Assert
-            Assert.IsNotNull(result);
+            //// Assert
+            //Assert.IsNotNull(result);
+            try
+            {
+                HelpRepository repository = new HelpRepository();
+                //int counter = repository.CountChars("pankaj", "a");
+                string test = repository.CountTotalChars("pankaj");
+
+                //string s;
+                //object o = null;
+                //s = Convert.ToString(o);
+               
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            
         }
     }
 }

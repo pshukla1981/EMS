@@ -37,5 +37,39 @@ namespace EMA.Business.Factory.Repository
             }
             return model;
         }
+
+        public int CountChars(string str,string character)
+        {
+            int Countter = 0;
+            char[] arr = str.ToCharArray();
+            foreach(var items in arr)
+            {
+                if(items.ToString() == character)
+                {
+                    Countter++;
+                }
+            }
+            return Countter;
+        }
+
+        public string CountTotalChars(string str)
+        {
+            string output = string.Empty;
+            int Countter = 1;
+            char[] arr = str.ToCharArray();
+            Dictionary<string, int> dist = new Dictionary<string, int>();
+            foreach (var items in arr)
+            {
+                if (!dist.ContainsKey(items.ToString()))
+                {
+                    dist.Add(items.ToString(), 1);
+                }
+                else
+                {
+                    dist.Add(items.ToString(), Countter++);
+                }
+            }
+            return output;
+        }
     }
 }
